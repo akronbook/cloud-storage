@@ -1,5 +1,5 @@
 {
-  "name": "cloud-storage",
+  "name": "@akronbook/cloud-storage",
   "description": "Handle different types of cloud storage (e.g. Azure, S3, etc.) using a consistent API",
   "files": [
     "dist"
