@@ -4,7 +4,6 @@
   "files": [
     "dist"
   ],
-  "private": true,
   "version": "0.0.0",
   "main": "./dist/cloud-storage.umd.js",
   "module": "./dist/cloud-storage.es.js",
