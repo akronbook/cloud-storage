@@ -1,2 +1,1 @@
-export class CloudManager {
-}
+export {StorageManager} from "./storage-manager";
