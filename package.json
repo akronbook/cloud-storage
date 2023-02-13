@@ -1,8 +1,19 @@
 {
   "name": "cloud-storage",
+  "description": "Handle different types of cloud storage (e.g. Azure, S3, etc.) using a consistent API",
+  "files": [
+    "dist"
+  ],
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "main": "./dist/cloud-storage.umd.js",
+  "module": "./dist/cloud-storage.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/cloud-storage.es.js",
+      "require": "./dist/cloud-storage.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
