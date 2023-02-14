@@ -4,10 +4,10 @@
   "files": [
     "dist"
   ],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./dist/cloud-storage.umd.js",
   "module": "./dist/cloud-storage.es.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/cloud-storage.es.js",
