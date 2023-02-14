@@ -48,17 +48,23 @@ export class AwsStorage implements IStorage {
     private UploadFileToS3(params: any, options: any, progressRef: Subject<number>): Promise<any> {
         const self = this;
         const uploadPromise = new Promise(function (resolve: any, reject: any): void {
-            self._awsClient.upload(params, options, function (err: any, data: any): void {
-                if (err) {
-                    reject(err);
-                }
-                else {
-
-                    resolve(data);
-                }
+            self.uploadImpl(params, options, resolve, reject).on('httpUploadProgress', function(progress: any) {
+                progressRef.next(progress.loaded);
             });
         });
 
         return uploadPromise;
+    }
+
+    private uploadImpl(params: any, options: any, resolve: any, reject: any) {
+        return this._awsClient.upload(params, options, function (err: any, data: any) {
+            if (err) {
+                reject(err);
+                return false;
+              }
+
+              resolve(data);
+              return true;
+        });
     }
 }
