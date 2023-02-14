@@ -1,10 +1,6 @@
 import { IStorage, StorageCredential } from "../storage-interface";
 import { Subject } from 'rxjs';
-declare var AWS: any;
-
-if (typeof window === 'undefined') { // This is node
-    var AWS = require('aws-sdk');
-}
+import AWS from 'aws-sdk';
 
 export class WoStorage implements IStorage {
     private _awsClient: any = null;
