@@ -1,11 +1,12 @@
 import { IStorage, StorageCredential } from "../storage-interface";
 import { Subject } from 'rxjs';
-declare var AWS: any;
 
 export class WoStorage implements IStorage {
+    constructor(private AWS: any) {  
+    }
     private _awsClient: any = null;
     public initialize(credential: StorageCredential): void {
-        this._awsClient = new AWS.S3({
+        this._awsClient = new this.AWS.S3({
             endpoint: credential.apiBase,
             accessKeyId: credential.credentials.accessKeyId,
             secretAccessKey: credential.credentials.accessKeySecret,
