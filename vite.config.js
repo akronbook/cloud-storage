@@ -3,7 +3,7 @@ const { defineConfig } = require('vite')
 
 module.exports = defineConfig({
   define: {
-    
+    global: "globalThis"
   },
   build: {
     lib: {
@@ -14,7 +14,7 @@ module.exports = defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      //external: ['aws-sdk'],
+      external: ['aws-sdk'],
       output: {
         globals: {
           "aws-sdk": 'AWS',
