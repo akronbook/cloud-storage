@@ -2,9 +2,6 @@ const path = require('path')
 const { defineConfig } = require('vite')
 
 module.exports = defineConfig({
-  define: {
-    global: 'AWS'
-  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
