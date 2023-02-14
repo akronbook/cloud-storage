@@ -10,6 +10,6 @@ export interface StorageCredential {
 
 export interface IStorage {
     initialize(credential: StorageCredential):void;
-    uploadFile(credential: StorageCredential, file: File, fileName: string, progress: Subject<number>): Promise<void>;
+    uploadFile(credential: StorageCredential, fileBuffer: ArrayBuffer, fileName: string, progress: Subject<number>): Promise<void>;
     getFileUrl(credential: StorageCredential, filePath: string): string;
 }

@@ -15,12 +15,14 @@ export class WoStorage implements IStorage {
             region: credential.credentials.RegionalId});
     }
 
-    public async uploadFile(credential: StorageCredential, file: File, fileName: string, progress: Subject<number>): Promise<void> {
+    public async uploadFile(credential: StorageCredential, fileBuffer: ArrayBuffer, fileName: string, progress: Subject<number>): Promise<void> {
         const key = `${credential.folder}/${fileName}`;
-        let payload: any = file;
+        let payload: any = null
         if (typeof window === 'undefined') { // This is node
-            const arrayBuffer = await file.arrayBuffer();
-            payload = Buffer.from(arrayBuffer);
+            payload = Buffer.from(fileBuffer);
+        }
+        else {
+            payload = new Int8Array(fileBuffer);
         }
 
         const params = {
