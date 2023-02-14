@@ -2,12 +2,7 @@ const path = require('path')
 const { defineConfig } = require('vite')
 
 module.exports = defineConfig({
-  define: {
-    global: "AWS"
-  },
-  external: [
-    "AWS"
-  ],
+
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
@@ -21,6 +16,7 @@ module.exports = defineConfig({
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
+        inlineDynamicImports: true, // <== here the entry
         globals: {
           AWS: 'AWS',
         },
