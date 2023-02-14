@@ -4,7 +4,7 @@
   "files": [
     "dist"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/cloud-storage.umd.js",
   "module": "./dist/cloud-storage.es.js",
   "types": "./dist/types/index.d.ts",
