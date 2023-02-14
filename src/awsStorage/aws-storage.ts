@@ -1,18 +1,18 @@
 import { IStorage, StorageCredential } from "../storage-interface";
 import { Subject } from 'rxjs';
-export class WoStorage implements IStorage {
-    constructor() {  
-    }
+
+export class AwsStorage implements IStorage {
     private _awsClient: any = null;
     public initialize(credential: StorageCredential): void {
         this._awsClient = new (globalThis as any).AWS.S3({
-            endpoint: credential.apiBase,
-            accessKeyId: credential.credentials.accessKeyId,
-            secretAccessKey: credential.credentials.accessKeySecret,
-            sessionToken: credential.credentials.securityToken,
-            s3ForcePathStyle: true,
-            signatureVersion: 'v2',
-            region: credential.credentials.RegionalId});
+            credentials: {
+            accessKeyId: credential.credentials.AccessKeyId,
+            secretAccessKey: credential.credentials.SecretAccessKey,
+            bucket: credential.credentials.Bucket,
+            sessionToken: credential.credentials.SessionToken,
+            secure: true
+        },
+        region: credential.credentials.RegionalId});
     }
 
     public async uploadFile(credential: StorageCredential, fileBuffer: ArrayBuffer, fileName: string, progress: Subject<number>): Promise<void> {
@@ -27,12 +27,11 @@ export class WoStorage implements IStorage {
 
         const params = {
             Body: payload,
-            Bucket: credential.credentials.Bucket,
+            Bucket: this._awsClient.config.credentials.bucket,
             Key: key
         };
 
-        const options = { partSize: 5 * 1024 * 1024, queueSize: 4 };
-
+        const options = { partSize: 1000 * 1024 * 1024, queueSize: 4 };
         await this.UploadFileToS3(params, options, progress);
     }
 
@@ -49,23 +48,17 @@ export class WoStorage implements IStorage {
     private UploadFileToS3(params: any, options: any, progressRef: Subject<number>): Promise<any> {
         const self = this;
         const uploadPromise = new Promise(function (resolve: any, reject: any): void {
-            self.uploadImpl(params, options, resolve, reject).on('httpUploadProgress', function(progress: any) {
-                progressRef.next(progress.loaded);
+            self._awsClient.upload(params, options, function (err: any, data: any): void {
+                if (err) {
+                    reject(err);
+                }
+                else {
+
+                    resolve(data);
+                }
             });
         });
 
         return uploadPromise;
-    }
-
-    private uploadImpl(params: any, options: any, resolve: any, reject: any) {
-        return this._awsClient.upload(params, options, function (err: any, data: any) {
-            if (err) {
-                reject(err);
-                return false;
-              }
-
-              resolve(data);
-              return true;
-        });
     }
 }
