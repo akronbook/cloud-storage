@@ -11,7 +11,12 @@ module.exports = defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['AWS']
+      external: ['aws-sdk'],
+      output: {
+        globals: {
+          "aws-sdk": 'AWS',
+        },
+      },
     },
   },
 });
