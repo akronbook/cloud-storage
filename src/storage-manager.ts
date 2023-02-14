@@ -1,6 +1,6 @@
 import { WoStorage } from "./woStorage/wo-storage";
-import { IStorage } from "./storage-interface";
 import { AwsStorage } from "./awsStorage/aws-storage";
+import { IStorage } from "./storage-interface";
 
 const constructors: any = {};
 constructors['wo'] = WoStorage;
