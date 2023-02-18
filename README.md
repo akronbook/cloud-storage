@@ -14,8 +14,8 @@ The library chooses to use pre-signed URLs (vs. REST APIs) for reading and writi
 
 ## How to use it?
 - Install the SDK
-* npm install @akronbook/cloud-storage --save
-* npm install rxjs --save-dev
+ * npm install @akronbook/cloud-storage --save
+ * npm install rxjs --save-dev
 
 - Make sure that globals are properly defined. For example, cloud-storage assumes that AWS global is defined by the caller, thus if you are going to make use cloud-storage in a Node.JS project, make sure to set up the AWS global object like this:
 ```
