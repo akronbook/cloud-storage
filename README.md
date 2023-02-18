@@ -70,6 +70,6 @@ We will add supports to some other storage types:
 
 We will also add supports to:
 - delete files
-- check whether an file exists or not
+- check whether a file exists or not
 
 
